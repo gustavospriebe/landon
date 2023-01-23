@@ -1,3 +1,5 @@
+import MenuLinks from './data/menu_links.json'
+
 export default function Header() {
     return (
         <header id="intro">
@@ -24,31 +26,13 @@ export default function Header() {
                         </a>
                     </div>
                     <ul>
-                        <li>
-                            <a className="icon info" href="#hotelinfo">
-                                <span>info</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a className="icon rooms" href="#rooms">
-                                <span>rooms</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a className="icon dining" href="#dining">
-                                <span>dining</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a className="icon events" href="#events">
-                                <span>events</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a className="icon attractions" href="#attractions">
-                                <span>attractions</span>
-                            </a>
-                        </li>
+                        {MenuLinks.map((i) => (
+                            <li key={i.class} className={i.class}>
+                                <a href={i.href}>
+                                    <span>{i.text}</span>
+                                </a>
+                            </li>
+                        ))}{" "}
                     </ul>
                 </div>
             </nav>
