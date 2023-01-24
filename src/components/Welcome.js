@@ -1,12 +1,31 @@
-import GalleryImages from './data/gallery_images.json'
+import { useEffect, useState } from "react";
 
 export default function Welcome() {
+    const [galleryImg, setgalleryImg] = useState([]);
+
+    useEffect(() => {
+        const data = async () => {
+            const result = await fetch(
+                "https://rmvd3x7o0c.execute-api.us-east-2.amazonaws.com/Production/galleryimg"
+            );
+            const json = await result.json();
+            setgalleryImg(json);
+        };
+
+        data();
+    }, []);
+
     return (
         <div className="scene" id="welcome">
             <article className="content">
                 <div className="gallery">
-                    {GalleryImages.map(img => (
-                        <img key={img.src} src={img.src} alt={img.alt} className={img.className}/>
+                    {galleryImg.map((img) => (
+                        <img
+                            key={img.src}
+                            src={img.src}
+                            alt={img.alt}
+                            className={img.className}
+                        />
                     ))}
                 </div>
                 <h1>Welcome to the Landon&nbsp;Hotel</h1>

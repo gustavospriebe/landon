@@ -1,7 +1,33 @@
-import Acessibility from "./data/accessibilities.json";
-import Services from "./data/services.json";
+import { useEffect, useState } from "react";
 
 export default function HotelInfo() {
+    const [accessibility, setAccessibility] = useState([]);
+    const [services, setServices] = useState([]);
+
+    useEffect(() => {
+        const data = async () => {
+            const result = await fetch(
+                "https://rmvd3x7o0c.execute-api.us-east-2.amazonaws.com/Production/services"
+            );
+            const json = await result.json();
+            setServices(json);
+        };
+
+        data();
+    }, []);
+    
+    useEffect(() => {
+        const data = async () => {
+            const result = await fetch(
+                "https://rmvd3x7o0c.execute-api.us-east-2.amazonaws.com/Production/accessibilities"
+            );
+            const json = await result.json();
+            setAccessibility(json);
+        };
+
+        data();
+    }, []);
+
     return (
         <div className="scene" id="hotelinfo">
             <article className="heading">
@@ -47,7 +73,7 @@ export default function HotelInfo() {
                         one-of-a-kind.
                     </p>
                     <ul>
-                        {Services.map((item) => (
+                        {services.map((item) => (
                             <li key={item.name}>{item.name}</li>
                         ))}
                     </ul>
@@ -60,7 +86,7 @@ export default function HotelInfo() {
                         facilities for those with special needs:
                     </p>
                     <ul>
-                        {Acessibility.map((i) => (
+                        {accessibility.map((i) => (
                             <li key={i.name}>{i.name}</li>
                         ))}
                     </ul>
